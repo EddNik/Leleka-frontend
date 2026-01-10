@@ -34,6 +34,19 @@
   border: 2px solid var(--color-pastel-pink);
 }
 
+.dateInput {
+  background-color: var(--opacity-neutral-darkest-5);
+  outline: none;
+  border: 2px solid transparent;
+  height: 44px;
+  border-radius: 12px;
+  padding: 0 12px;
+  transition: border 0.2s ease-in-out;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-neutral-darkest);
+}
+
 .selectWrapper {
   position: relative;
   width: 100%;

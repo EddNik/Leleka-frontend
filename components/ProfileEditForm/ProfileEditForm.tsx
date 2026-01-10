@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
     .max(32, "Ім'я повинно містити максимум 32 символи"),
   email: Yup.string().email('Невірний формат email'),
   childGender: Yup.string().oneOf(['male', 'female', 'neutral']),
-  expectedBirthDate: Yup.date().min(
+  dueDate: Yup.date().min(
     new Date(),
     'Дата народження повинна бути в майбутньому',
   ),
@@ -23,7 +23,7 @@ interface FormValues {
   name: string;
   email: string;
   childGender: 'male' | 'female' | 'neutral' | '';
-  expectedBirthDate: string;
+  dueDate: string;
 }
 
 export default function ProfileEditForm() {
@@ -71,7 +71,7 @@ export default function ProfileEditForm() {
     name: user?.name || '',
     email: user?.email || '',
     childGender: (user?.gender as 'male' | 'female' | 'neutral') || '',
-    expectedBirthDate: user?.dueDate || '',
+    dueDate: user?.dueDate || '',
   };
 
   const handleSubmit = async (values: FormValues) => {
@@ -80,7 +80,7 @@ export default function ProfileEditForm() {
         name: values.name,
         email: values.email,
         gender: values.childGender,
-        dueDate: values.expectedBirthDate,
+        dueDate: values.dueDate,
       });
       setUser(updatedUser);
       console.log('User updated successfully:', updatedUser);
@@ -191,17 +191,17 @@ export default function ProfileEditForm() {
           </div>
 
           <div className={css.field}>
-            <label htmlFor="expectedBirthDate" className={css.label}>
+            <label htmlFor="dueDate" className={css.label}>
               Планова дата пологів
             </label>
             <Field
               type="date"
-              id="expectedBirthDate"
-              name="expectedBirthDate"
-              className={css.input}
+              id="dueDate"
+              name="dueDate"
+              className={css.dateInput}
             />
             <ErrorMessage
-              name="expectedBirthDate"
+              name="dueDate"
               component="div"
               className={css.error}
             />
