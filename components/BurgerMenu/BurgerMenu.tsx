@@ -38,16 +38,10 @@ export default function BurgerMenu({ onClose }: BurgerMenuProps) {
       <nav className={styles.navigator_header}>
         <div className={styles.menu_box}>
           <Link className={styles.logo_link} href="/" onClick={handleClose}>
-            <Image
-              src="/img/logo.jpg"
-              width={105}
-              height={45}
-              className={styles.logo_header}
-              alt="logo"
-              priority
-              
-            />
-          </Link>
+            <svg className={styles.logo_header} width="105" height="45">
+              <use href="#icon-logo"></use>
+            </svg>
+            </Link>
           <button
             onClick={handleClose}
             type="button"

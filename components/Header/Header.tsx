@@ -1,9 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import HeaderFooter from '../HeaderFooter/HeaderFooter';
 import styles from './Header.module.css';
-import Image from 'next/image';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -17,15 +15,10 @@ export default function Header() {
     <>
       <header className={styles.header}>
         <nav className={styles.navigator_header}>
-            <Link className={styles.logo_link} href="/">
-              <Image
-                src="/img/logo.jpg"
-                width={105}
-                height={45}
-                className={styles.logo_header}
-                alt="logo"
-                priority
-              />
+          <Link className={styles.logo_link} href="/">
+            <svg className={styles.logo_header} width="105" height="45">
+              <use href="#icon-logo"></use>
+            </svg>
             </Link>
           <ul className={styles.desktop_nav}>
             <li
@@ -76,9 +69,7 @@ export default function Header() {
                 Профіль
               </Link>
             </li>
-            <li
-              className={clsx(styles.nav_item)}
-            >
+            <li className={clsx(styles.nav_item)}>
               <Link className={styles.nav_link_modal} href="/sign-up">
                 <svg width="24" height="24">
                   <use href="#icon-account_circle"></use>
@@ -86,9 +77,7 @@ export default function Header() {
                 Зареєстуватись
               </Link>
             </li>
-            <li
-              className={clsx(styles.nav_item)}
-            >
+            <li className={clsx(styles.nav_item)}>
               <Link className={styles.nav_link_modal} href="/sign-in">
                 <svg width="24" height="24">
                   <use href="#icon-account_circle"></use>

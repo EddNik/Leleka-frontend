@@ -3,7 +3,7 @@ import './globals.css';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
 import { lato, comfortaa } from './fonts';
-import Sprite from '@/public/img/sprite';
+import Sprite from '@/public/img/header/sprite';
 
 export const metadata: Metadata = {
   title: 'Leleka',
