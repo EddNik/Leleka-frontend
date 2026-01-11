@@ -3,6 +3,7 @@ import './globals.css';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
 import { lato, comfortaa } from './fonts';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,6 +21,18 @@ export default function RootLayout({
         <TanStackProvider>
           <Header />
           {children}
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#fff',
+                color: '#000',
+                border: '1px solid #e0e0e0',
+                borderRadius: '12px',
+              },
+            }}
+          />
         </TanStackProvider>
       </body>
     </html>
