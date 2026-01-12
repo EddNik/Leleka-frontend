@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import './reset.css';
 import './globals.css';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
