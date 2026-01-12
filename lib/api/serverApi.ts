@@ -10,6 +10,6 @@ export async function fetchDataByWeekNumber(
     params: { week: weekNumber },
     withCredentials: true,
   });
-
+  console.log(data);
   return data;
 }

@@ -5,6 +5,7 @@ import { fetchDataByWeekNumber } from '@/lib/api/serverApi';
 import { PregnancyWeek } from '@/types/week';
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
 import css from './JourneyClient.module.css';
+import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 
 interface Props {
   weekNumber: number;
@@ -23,7 +24,9 @@ function JourneyPageClient({ weekNumber }: Props) {
   return (
     <div className={css.page}>
       <WeekSelector currentWeek={currentWeek} weekNumber={weekNumber} />
-      {data?.mom.feelings.sensationDescr}
+      {/* {data?.mom.feelings.sensationDescr} */}
+
+      {data ? <JourneyDetails data={data} /> : null}
     </div>
   );
 }
