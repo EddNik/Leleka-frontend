@@ -4,18 +4,18 @@ import { useState } from 'react';
 import css from './JourneyDetails.module.css';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { fetchDataByWeekNumber } from '@/lib/api/serverApi';
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 
-export default function JourneyDetails(weekNumber: number) {
-  // export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
+// export default function JourneyDetails({ weekNumber }: { weekNumber: number }) {
+// export default function JourneyDetails({ weekNumber }: { weekNumber: number }) {
+export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const { data, isLoading, error } = useQuery<PregnancyWeek>({
-    queryKey: ['journey', weekNumber],
-    queryFn: () => fetchDataByWeekNumber(weekNumber),
-    refetchOnMount: false,
-  });
+  // const { data, isLoading, error } = useQuery<PregnancyWeek>({
+  //   queryKey: ['journey', weekNumber],
+  //   queryFn: () => fetchDataByWeekNumber(weekNumber),
+  //   refetchOnMount: false,
+  // });
 
   return (
     <>
@@ -46,6 +46,8 @@ export default function JourneyDetails(weekNumber: number) {
                     src={`${data.baby.image}`}
                     alt="Baby Size Association Image"
                     className={css.babyImage}
+                    width={300}
+                    height={300}
                   />
                 </div>
                 <p className={css.babyAnalogy}>
@@ -68,7 +70,7 @@ export default function JourneyDetails(weekNumber: number) {
                       width="24"
                       height="24"
                     >
-                      <use href="/img/journey/journey-sprite.svg#icon-star_shine"></use>
+                      <use href="/img/journey/journey-sprite.svg#star_shine"></use>
                     </svg>
                     <h4>Цікавий факт тижня</h4>
                   </div>
@@ -108,7 +110,7 @@ export default function JourneyDetails(weekNumber: number) {
                             width="24"
                             height="24"
                           >
-                            <use href="./journey-sprite.svg#fork_spoon"></use>
+                            <use href="./img/journey/journey-sprite.svg#fork_spoon"></use>
                           </svg>
                           <h5>{tip.category}</h5>
                         </div>
