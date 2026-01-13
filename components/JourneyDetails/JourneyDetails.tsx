@@ -8,7 +8,7 @@ import Image from 'next/image';
 const CATEGORY_ICONS: Record<string, string> = {
   Харчування: 'fork_spoon',
   Активність: 'fitness_center',
-  Відпочинок: 'chair',
+  'Відпочинок та комфорт': 'chair',
 };
 
 export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
@@ -16,7 +16,8 @@ export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
 
   return (
     <>
-      <section className={css.journeyDetails}>
+      {/* <section className={css.journeyDetails}> */}
+      <section>
         <div className={css.journeyContainer}>
           <div className={css.tabContainer}>
             <button
@@ -87,7 +88,10 @@ export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
                   <h3 className={css.feelingsTitle}>Як ви можете почуватись</h3>
                   <ul className={css.feelingsList}>
                     {data.mom.feelings.states.map((state, index) => (
-                      <li key={`${state}-${index}`} className={css.fillingsItem}>
+                      <li
+                        key={`${state}-${index}`}
+                        className={css.fillingsItem}
+                      >
                         {state}
                       </li>
                     ))}
