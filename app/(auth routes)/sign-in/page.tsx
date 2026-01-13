@@ -76,19 +76,19 @@ export default function SignIn() {
           onSubmit={handleSubmit}
           validationSchema={OrderFormSchema}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, isSubmitting }) => (
             <Form className={css.form}>
               <h1 className={css.formTitle}>Вхід</h1>
 
               <div className={css.formGroup}>
                 <Field
                   id="email"
-                  type="email"
+               
                   name="email"
                   className={`${css.input} ${
                     errors.email && touched.email ? css.inputError : ''
                   }`}
-                  required
+     
                   placeholder="Пошта"
                 />
                 <ErrorMessage
@@ -101,12 +101,12 @@ export default function SignIn() {
               <div className={css.formGroup}>
                 <Field
                   id="password"
-                  type="password"
+                
                   name="password"
                   className={`${css.input} ${
                     errors.password && touched.password ? css.inputError : ''
                   }`}
-                  required
+                 
                   placeholder="Пароль"
                 />
                 <ErrorMessage
@@ -116,7 +116,7 @@ export default function SignIn() {
                 />
               </div>
               <div className={css.actions}>
-                <button type="submit" className={css.submitButton}>
+                <button type="submit" className={css.submitButton} disabled={isSubmitting}>
                   Увійти
                 </button>
               </div>
