@@ -20,10 +20,9 @@
 }
 
 .journeyContainer {
-  width: 1064px;
+  width: 100%;
   padding: 24px 0;
   margin: 0 auto;
-  z-index: 1;
 }
 
 .tabContainer {
@@ -194,6 +193,7 @@
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 8px;
+  list-style: none;
 }
 
 .feelingsTitle {
@@ -201,7 +201,6 @@
 }
 
 .fillingsItem {
-  list-style: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;

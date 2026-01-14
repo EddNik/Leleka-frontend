@@ -46,6 +46,7 @@ export default function JourneyDetails({ data }: { data: PregnancyWeek }) {
                     className={css.babyImage}
                     width={461}
                     height={379}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
                 {data.baby.analogy && (
