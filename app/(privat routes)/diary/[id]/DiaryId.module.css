@@ -2,12 +2,12 @@
     padding: 32px 20px;
     max-width: 375px;
     margin: 0 auto;
+    margin-top: 68px;
 }
 
 @media only screen and (min-width: 768px) {
     .container {
         padding: 32px 20px;
         max-width: 768px;
-        margin: 0 auto;
     }
 }
