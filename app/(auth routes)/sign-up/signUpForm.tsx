@@ -1,19 +1,37 @@
 'use client';
-import Link from 'next/link';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useAuthStore } from '@/lib/store/authStore';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 
-// YUP SETTINGS
-const validationSchema = Yup.object({
+import css from './signUpForm.module.css';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
+import Image from 'next/image';
+
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+
+// Types
+interface SignUpFormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Initial values
+const initialValues: SignUpFormValues = {
+  name: '',
+  email: '',
+  password: '',
+};
+
+// Validation schema
+const SignUpFormSchema = Yup.object().shape({
   name: Yup.string()
-    .required("Імʼя обов'язкове")
-    .max(32, 'Імʼя має бути коротшим за 32 символи'),
+    .max(32, 'Імʼя має бути коротшим за 32 символи')
+    .required("Імʼя обов'язкове"),
   email: Yup.string()
-    .email('Невірний формат email')
     .max(64, 'Пошта має бути коротшою за 64 символи')
+    .email('Невірний формат email')
     .required("Пошта обов'язкова"),
   password: Yup.string()
     .min(8, 'Пароль має бути не менше 8 символів')
@@ -21,102 +39,139 @@ const validationSchema = Yup.object({
     .required("Пароль обов'язковий"),
 });
 
-type SignUpFormValues = {
-  name: string;
-  email: string;
-  password: string;
-};
-
+// Component
 export default function SignUpForm() {
   const register = useAuthStore((state) => state.register);
   const router = useRouter();
 
-  // Initial values formik + onSubmit
-  const formik = useFormik<SignUpFormValues>({
-    initialValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        await register(values);
-        router.push('/profile/edit'); // вот тут будет редайрект на онбоардинг
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        } else {
-          toast.error('Невідома помилка');
-        }
+  const handleSubmit = async (
+    values: SignUpFormValues,
+    actions: FormikHelpers<SignUpFormValues>,
+  ) => {
+    try {
+      await register(values);
+      actions.resetForm();
+      router.push('/profile/edit');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Невідома помилка');
       }
-    },
-  });
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+
   return (
-    <div>
-      <div>Тут будет картинка(наверное), слева сверху</div>
-      <h1>Реєстрація</h1>
-      <form onSubmit={formik.handleSubmit}>
-        {/* NAME */}
-        <div>
-          <label htmlFor="name">Імʼя*</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Ваше імʼя"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-          />
-          {/* show error for name */}
-          {formik.touched.name && formik.errors.name ? (
-            <div className="error-message">{formik.errors.name}</div>
-          ) : null}
+    <main className={css.mainContent}>
+      <Link className={css.logo} href="/">
+        <svg className="logo-icon" width="30" height="30">
+          <use href="/img/logo/sprite.svg#icon-logo"></use>
+        </svg>
+        <svg className="stork-icon" width="61" height="13">
+          <use href="/img/logo/sprite.svg#icon-stork"></use>
+        </svg>
+      </Link>
+
+      <div className={css.content}>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={SignUpFormSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, isSubmitting }) => (
+            <Form className={css.form}>
+              <h1 className={css.formTitle}>Реєстрація</h1>
+
+              {/* NAME */}
+              <div className={css.formGroup}>
+                <label htmlFor="name" className={css.label}>
+                  Імʼя<span className={css.required}>*</span>
+                </label>
+                <Field
+                  id="name"
+                  name="name"
+                  placeholder="Ваше імʼя"
+                  className={`${css.input} ${
+                    errors.name && touched.name ? css.inputError : ''
+                  }`}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div className={css.formGroup}>
+                <label htmlFor="email" className={css.label}>
+                  Пошта<span className={css.required}>*</span>
+                </label>
+                <Field
+                  id="email"
+                  name="email"
+                  placeholder="hello@leleka.com"
+                  className={`${css.input} ${
+                    errors.email && touched.email ? css.inputError : ''
+                  }`}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div className={css.formGroup}>
+                <label htmlFor="password" className={css.label}>
+                  Пароль<span className={css.required}>*</span>
+                </label>
+                <Field
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="********"
+                  className={`${css.input} ${
+                    errors.password && touched.password ? css.inputError : ''
+                  }`}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
+
+              <div className={css.actions}>
+                <button
+                  type="submit"
+                  className={css.submitButton}
+                  disabled={isSubmitting}
+                >
+                  Зареєструватись
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+
+        <div className={css.nav}>
+          <p className={css.description}>Вже маєте акаунт?</p>
+          <Link className={css.link} href="/sign-in">
+            Увійти
+          </Link>
         </div>
-        {/* EMAIL */}
-        <div>
-          <label htmlFor="email">Пошта*</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="hello@leleka.com"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {/* show error for email */}
-          {formik.touched.email && formik.errors.email ? (
-            <div className="error-message">{formik.errors.email}</div>
-          ) : null}
-        </div>
-        {/* PASSWORD */}
-        <div>
-          <label htmlFor="password">Пароль*</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="********"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-          {formik.touched.password && formik.errors.password ? (
-            <div className="error-message">{formik.errors.password}</div>
-          ) : null}
-        </div>
-        {/* SUBMIT BUTTON, disabled можно будет отключить если не устроит по UI Kit-у */}
-        <button type="submit" disabled={!formik.isValid || formik.isSubmitting}>
-          Зареєструватись
-        </button>
-        {/* УЖЕ ЕСТЬ АКК? пока выдаёт 404 так как проект не собран и нет формы входа*/}
-        <p>
-          Вже маєте аккаунт?{` `}
-          <Link href="/auth/login">Увійти</Link>
-        </p>
-      </form>
-    </div>
+      </div>
+      <Image
+        className={css.img}
+        src="/img/registrationPage.png"
+        alt="registration"
+        width={720}
+        height={900}
+      />
+    </main>
   );
 }
