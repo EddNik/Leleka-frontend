@@ -20,7 +20,6 @@ export default function RootLayout({
       <body className={`${lato.className} ${comfortaa.className}`}>
         <TanStackProvider>
           <Sprite />
-
           {children}
         </TanStackProvider>
       </body>
