@@ -38,7 +38,6 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  /* position: relative; */
   margin-bottom: 20px;
 }
 .label {
@@ -166,15 +165,30 @@
     max-width: 1440px;
     display: flex;
     position: relative;
+    /* изменения: */
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
   }
 
   .logo {
     position: absolute;
     left: 69px;
+    top: 22px;
+    /* изменения: */
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: -411px; /* смещаю вверх, чтобы было над формой НА ГЛАЗ!!!*/
   }
   .content {
     min-height: 900px;
     width: 720px;
+    /* изменения: */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
   }
 
   .formTitle {
