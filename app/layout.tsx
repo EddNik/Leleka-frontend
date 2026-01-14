@@ -17,10 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lato.className} ${comfortaa.className}`}
-        suppressHydrationWarning={true}
-      >
+      <body className={`${lato.className} ${comfortaa.className}`}>
         <TanStackProvider>
           <Sprite />
 
