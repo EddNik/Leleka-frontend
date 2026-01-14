@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import css from './DiaryEntryDetails.module.css';
 import { Diary } from '@/types/diary';
+import { getFormattedDate } from '@/app/helpers/utils';
 
 interface DiaryEntryDetailsProps {
     diary: Diary;
@@ -21,7 +22,7 @@ export default function DiaryEntryDetails({ diary, className = '' }: DiaryEntryD
                     </button>
                 </div>
                 <div className={css.date}>
-                    <span className={css.dateText}>15 липня 2025</span>
+                    <span className={css.dateText}>{getFormattedDate(diary.date)}</span>
                     <button className={css.deleteButton}>
                         <svg className={css.deleteSvgIcon} width="24" height="24">
                             <use href="/img/sprite.svg#icon-delete"></use>
