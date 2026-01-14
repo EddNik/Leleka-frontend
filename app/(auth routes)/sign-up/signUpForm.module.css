@@ -38,8 +38,8 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  position: relative;
-  margin-bottom: 24px;
+  /* position: relative; */
+  margin-bottom: 20px;
 }
 .label {
   margin: 0 0 8px 0;
@@ -56,13 +56,10 @@
   width: 311px;
   height: 21px;
   background: var(--opacity-neutral-darkest-5);
-  margin: 0; /* убрали лишний отступ */
   outline: none;
   transition: border-color 0.2s ease;
 }
 .error {
-  margin-top: 8px;
-  height: 19px; /* зарезервированное место, чтобы не подпрыгивали инпуты */
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 12px;
