@@ -15,7 +15,7 @@ function StatusBlock({ weekNumber, dayToBirth }: StatusBlockProps) {
         </div>
         <div className={css.statusBlock__block}>
           <p className={css.statusBlock__label}>Днів до зустрічі</p>
-          <p className={css.statusBlock__value}>~${dayToBirth}</p>
+          <p className={css.statusBlock__value}>~{dayToBirth}</p>
         </div>
       </section>
     </>
