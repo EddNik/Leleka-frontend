@@ -20,7 +20,7 @@ export async function fetchDataByWeekNumber(
 
 export const fetchServerDiaries = async () => {
   const cookieStore = await cookies();
-  const {data} = await externalApi.get<ApiResponse<Diary[]>>('/api/diaries', {
+  const { data } = await externalApi.get<ApiResponse<Diary[]>>('/api/diaries', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -30,10 +30,13 @@ export const fetchServerDiaries = async () => {
 
 export const fetchServerDiaryById = async (id: string) => {
   const cookieStore = await cookies();
-  const {data} = await externalApi.get<ApiResponse<Diary>>(`/api/diaries/${id}`, {
-    headers: {
-      Cookie: cookieStore.toString(),
+  const { data } = await externalApi.get<ApiResponse<Diary>>(
+    `/api/diaries/${id}`,
+    {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
     },
-  });
+  );
   return data.data;
 };

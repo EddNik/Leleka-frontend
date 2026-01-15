@@ -6,9 +6,5 @@ interface EmptyMessageProps {
 }
 
 export default function EmptyMessage({ message }: EmptyMessageProps) {
-  return (
-    <p className={css.text}>
-      {message ? message : '🧐 Записи відсутні'}
-    </p>
-  );
+  return <p className={css.text}>{message ? message : '🧐 Записи відсутні'}</p>;
 }

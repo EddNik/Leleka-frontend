@@ -10,11 +10,10 @@ export default async function DiaryPage() {
   await queryClient.prefetchQuery({
     queryKey: ['diaries'],
     queryFn: () => fetchServerDiaries(),
-
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <DiaryPageClient />
     </HydrationBoundary>
   );
-} 
+}
