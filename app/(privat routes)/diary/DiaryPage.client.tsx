@@ -50,10 +50,7 @@ export default function DiaryPageClient() {
                       width: '100%',
                     }}
                   >
-                    <DiaryEntryDetails
-                      diary={diaries[selectedDiaryIndex]}
-                      className={css.entryDetails}
-                    />
+                    <DiaryEntryDetails diary={diaries[selectedDiaryIndex]} />
                   </motion.div>
                 </AnimatePresence>
               </div>

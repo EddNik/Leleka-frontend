@@ -19,6 +19,7 @@
     background-color: var(--color-scheme-foreground);
     border-radius: 32px;
     flex: 1;
+    display: none;
 }
 
 .animatedContent {
@@ -45,7 +46,7 @@
         flex-direction: row;
     }
 
-    .entryDetails {
+    .entryDetailsContainer {
         display: block;
     }
 }
