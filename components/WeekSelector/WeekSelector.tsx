@@ -5,13 +5,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import css from './WeekSelector.module.css';
 
-const WeekSelector = ({
-  currentWeek,
-  weekNumber,
-}: {
-  currentWeek: number;
-  weekNumber: number;
-}) => {
+const WeekSelector = ({ weekNumber }: { weekNumber: number }) => {
   const weeks = Array.from({ length: 40 }, (_, i) => i + 1);
   const activeRef = useRef<HTMLAnchorElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

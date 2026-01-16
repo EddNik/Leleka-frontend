@@ -3,11 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { PregnancyWeek } from '@/types/week';
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import css from './JourneyClient.module.css';
+import css from './JourneyPage.module.css';
 import { fetchWeekClient } from '@/lib/api/clientApi';
-import Image from 'next/image';
-import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 import Loader from '@/components/Loader/Loader';
+import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 
 interface Props {
   weekNumber: number;
@@ -17,24 +16,16 @@ function JourneyPageClient({ weekNumber }: Props) {
   const { data, isLoading } = useQuery<PregnancyWeek>({
     queryKey: ['week', weekNumber],
     queryFn: () => fetchWeekClient(weekNumber),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <Loader />;
 
-  const currentWeek: number = 5; /* тимчасово, треба Zustand */
-
   return (
     <div className={css.page}>
-      <WeekSelector currentWeek={currentWeek} weekNumber={weekNumber} />
-      {data?.weekNumber}
-      {data?.daysToBirth}
-      {data?.mom.feelings.sensationDescr}
-      <Image
-        src={data!.baby!.image as string}
-        alt="Baby photo"
-        width={300}
-        height={300}
-      />
+      <WeekSelector weekNumber={weekNumber} />
+      {data && <JourneyDetails data={data} />}
     </div>
   );
 }
