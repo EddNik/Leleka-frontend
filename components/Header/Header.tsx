@@ -82,12 +82,10 @@ export default function Header() {
             </li>
           </ul>
 
-          {/* FOOTER — ВНИЗ */}
           <div className={styles.footer}>
             <HeaderFooter />
           </div>
 
-          {/* MOBILE */}
           <div className={styles.menu_box}>
             <button
               onClick={() => setIsOpenModal((v) => !v)}
