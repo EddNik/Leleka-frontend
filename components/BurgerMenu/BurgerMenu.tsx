@@ -6,8 +6,8 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
-
-import HeaderFooter from '../HeaderFooter/HeaderFooter';
+import UserBar from '@/components/UserBar/UserBar';
+import AuthBar from '../AuthBar/AuthBar';
 
 import { useAuthStore } from '@/lib/store/authStore';
 
@@ -125,7 +125,7 @@ export default function BurgerMenu({ onClose }: BurgerMenuProps) {
             </Link>
           </li>
         </ul>
-        <HeaderFooter />
+        {user ? <UserBar /> : <AuthBar />}
       </nav>
     </div>
   );

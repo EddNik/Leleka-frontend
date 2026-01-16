@@ -6,9 +6,13 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import HeaderFooter from '../HeaderFooter/HeaderFooter';
+
+import AuthBar from '../AuthBar/AuthBar';
+import UserBar from '@/components/UserBar/UserBar';
+import { useAuthStore } from '@/lib/store/authStore';
 
 export default function Header() {
+  const user = useAuthStore((state) => state.user);
   const pathname = usePathname();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -82,10 +86,12 @@ export default function Header() {
             </li>
           </ul>
 
+          {/* AUTH / USER */}
           <div className={styles.footer}>
-            <HeaderFooter />
+            {user ? <UserBar /> : <AuthBar />}
           </div>
 
+          {/* BURGER */}
           <div className={styles.menu_box}>
             <button
               onClick={() => setIsOpenModal((v) => !v)}

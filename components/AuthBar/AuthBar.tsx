@@ -1,7 +1,8 @@
+'use client';
 import Link from 'next/link';
-import styles from './HeaderFooter.module.css';
+import styles from './AuthBar.module.css';
 import { clsx } from 'clsx';
-export default function HeaderFooter() {
+export default function AuthBar() {
   return (
     <div className={styles.boxFooter}>
       <ul className={styles.boxFooterList}>
