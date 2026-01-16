@@ -6,6 +6,8 @@ import WeekSelector from '@/components/WeekSelector/WeekSelector';
 import css from './JourneyClient.module.css';
 import { fetchWeekClient } from '@/lib/api/clientApi';
 import Image from 'next/image';
+import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
+import Loader from '@/components/Loader/Loader';
 
 interface Props {
   weekNumber: number;
@@ -17,7 +19,7 @@ function JourneyPageClient({ weekNumber }: Props) {
     queryFn: () => fetchWeekClient(weekNumber),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
 
   const currentWeek: number = 5; /* тимчасово, треба Zustand */
 

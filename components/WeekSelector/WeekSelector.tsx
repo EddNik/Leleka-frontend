@@ -14,6 +14,7 @@ const WeekSelector = ({
 }) => {
   const weeks = Array.from({ length: 40 }, (_, i) => i + 1);
   const activeRef = useRef<HTMLAnchorElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (activeRef.current) {
@@ -23,12 +24,58 @@ const WeekSelector = ({
         block: 'nearest',
       });
     }
-  }, [currentWeek]);
+  }, [weekNumber]);
+
+  useEffect(() => {
+    const slider = containerRef.current;
+    if (!slider) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const mouseDown = (e: MouseEvent) => {
+      isDown = true;
+      slider.classList.add(css.dragging);
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    };
+
+    const mouseLeave = () => {
+      isDown = false;
+      slider.classList.remove(css.dragging);
+    };
+
+    const mouseUp = () => {
+      isDown = false;
+      slider.classList.remove(css.dragging);
+    };
+
+    const mouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    slider.addEventListener('mousedown', mouseDown);
+    slider.addEventListener('mouseleave', mouseLeave);
+    slider.addEventListener('mouseup', mouseUp);
+    slider.addEventListener('mousemove', mouseMove);
+
+    return () => {
+      slider.removeEventListener('mousedown', mouseDown);
+      slider.removeEventListener('mouseleave', mouseLeave);
+      slider.removeEventListener('mouseup', mouseUp);
+      slider.removeEventListener('mousemove', mouseMove);
+    };
+  }, []);
 
   return (
     <nav className={css.week_selector_container}>
       {weeks.map((num) => {
-        const isFuture = num > currentWeek;
+        const isFuture = num > weekNumber;
         const isSelected = num === weekNumber;
 
         return (
