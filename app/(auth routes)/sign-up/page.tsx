@@ -1,7 +1,12 @@
-export default function SignUpPage() {
+import SignUpForm from '../../../components/SignUpForm/signUpForm';
+
+const SignUp = () => {
   return (
     <div>
-      Sign up page
+      <SignUpForm />
     </div>
   );
-}
+};
+
+export default SignUp;
+
