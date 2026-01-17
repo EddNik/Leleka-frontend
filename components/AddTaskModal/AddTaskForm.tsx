@@ -61,7 +61,6 @@ export default function AddTaskForm({ onSuccess }: AddTaskFormProps) {
           </label>
 
           <label className={styles.label}>
-            {' '}
             Дата
             <Field name="date" type="date" className={styles.input} />
             <ErrorMessage
