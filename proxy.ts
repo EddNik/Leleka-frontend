@@ -58,12 +58,20 @@ export async function proxy(request: NextRequest) {
       }
     }
   }
-  if (isPublicRoute) {
-    return NextResponse.redirect(new URL('/', request.url));
+  if (accessToken) {
+    if (isPublicRoute) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/journey/:path*', '/diary/:path*', '/sign-in', '/sign-up'],
+  matcher: [
+    '/profile/:path*',
+    '/journey/:path*',
+    '/diary/:path*',
+    '/sign-in',
+    '/sign-up',
+  ],
 };
