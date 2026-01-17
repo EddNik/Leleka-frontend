@@ -9,9 +9,15 @@ import { DiaryButton } from '../DiaryButton/DiaryButton';
 
 interface DiaryEntryDetailsProps {
   diary: Diary;
+  isPending: boolean;
+  onDelete: (id: string) => void;
 }
 
-export default function DiaryEntryDetails({ diary }: DiaryEntryDetailsProps) {
+export default function DiaryEntryDetails({
+  diary,
+  isPending,
+  onDelete,
+}: DiaryEntryDetailsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalClose = () => {
@@ -23,7 +29,7 @@ export default function DiaryEntryDetails({ diary }: DiaryEntryDetailsProps) {
       <div className={css.header}>
         <div className={css.title}>
           <h2 className={css.titleText}>{diary.title}</h2>
-          <button className={css.editButton}>
+          <button className={css.editButton} disabled={isPending}>
             <svg className={css.editSvgIcon} width="21" height="21">
               <use href="/img/sprite.svg#icon-edit"></use>
             </svg>
@@ -34,6 +40,7 @@ export default function DiaryEntryDetails({ diary }: DiaryEntryDetailsProps) {
           <button
             onClick={() => setIsModalOpen(true)}
             className={css.deleteButton}
+            disabled={isPending}
           >
             <svg className={css.deleteSvgIcon} width="24" height="24">
               <use href="/img/sprite.svg#icon-delete"></use>
@@ -58,7 +65,13 @@ export default function DiaryEntryDetails({ diary }: DiaryEntryDetailsProps) {
             <DiaryButton role="secondary" onClick={handleModalClose}>
               Ні
             </DiaryButton>
-            <DiaryButton role="primary" onClick={handleModalClose}>
+            <DiaryButton
+              role="primary"
+              onClick={() => {
+                onDelete(diary._id);
+                handleModalClose();
+              }}
+            >
               Так
             </DiaryButton>
           </div>
