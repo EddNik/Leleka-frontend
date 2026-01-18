@@ -55,8 +55,8 @@
   border: 2px solid var(--opacity-transparent);
   border-radius: 12px;
   padding: 8px 12px;
-  width: 311px;
-  height: 21px;
+  width: 335px;
+  height: 37px;
   background: var(--opacity-neutral-darkest-5);
   margin-bottom: 16px;
   outline: none;
@@ -150,8 +150,8 @@
   }
 
   .input {
-    width: 456px;
-    height: 21px;
+    width:480px;
+    height: 37px;
   }
 
   .submitButton {
