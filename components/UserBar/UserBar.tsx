@@ -13,6 +13,7 @@ export default function UserBar() {
   const router = useRouter();
   const avatarSrc = user?.avatar || '/img/avatar.jpg';
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -20,12 +21,15 @@ export default function UserBar() {
 
   const handleLogout = async () => {
     try {
+      setIsLoggingOut(true);
       await logout();
       clearAuth();
       toast.success('Ви успішно вийшли з акаунту');
       router.replace('/sign-in');
     } catch (error) {
       toast.error('Помилка при виході з акаунту');
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -45,7 +49,11 @@ export default function UserBar() {
           <p className={css.email}>{user?.email || 'email@example.com'}</p>
         </div>
       </div>
-      <button onClick={() => setIsModalOpen(true)} className={css.logoutBtn}>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className={css.logoutBtn}
+        disabled={isLoggingOut}
+      >
         <svg width="24" height="24">
           <use href="#icon-log-out"></use>
         </svg>
