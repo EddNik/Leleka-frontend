@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import css from '@/components/UserBar/UserBar.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
+
 export default function UserBar() {
-  const { user, setUser } = useAuthStore();
+  const { user } = useAuthStore();
+
   const avatarSrc = user?.avatar || '/img/avatar.jpg';
+
   return (
     <div className={css.cover}>
       <Image
