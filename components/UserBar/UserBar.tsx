@@ -9,7 +9,7 @@ export default function UserBar() {
       <Image
         src={avatarSrc}
         width={40}
-        height={40}
+        height={38}
         className={css.avatar}
         alt="User's avatar"
       />

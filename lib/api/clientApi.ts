@@ -77,9 +77,7 @@ export async function fetchCurrentWeekDashboardClient(): Promise<Week | null> {
   }
 }
 // Create POST function, a request to save a task note
-export const createTask = async (
-  task: CreateTaskRequest,
-): Promise<Task> => {
+export const createTask = async (task: CreateTaskRequest): Promise<Task> => {
   const { data } = await api.post<Task>('/tasks', task);
   return data;
 };
@@ -87,6 +85,10 @@ export const createTask = async (
 export const login = async (loginData: LoginData) => {
   const { data } = await api.post<ApiResponse<User>>(`/auth/login`, loginData);
   return data.data;
+};
+
+export const logout = async (): Promise<void> => {
+  await api.post('/auth/logout', {}, { withCredentials: true });
 };
 
 export const fetchDiaries = async () => {
