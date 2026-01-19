@@ -13,10 +13,8 @@
 .modal {
   position: relative;
   box-sizing: border-box;
-  /* width: 335px; */
-  width: calc(100% - 40px);
-  /* height: 484px; */
-  height: calc(100% - 416px);
+  width: 335px;
+  height: 484px;
   overflow: hidden;
   padding: 64px 20px;
   background-color: #ffffff;
