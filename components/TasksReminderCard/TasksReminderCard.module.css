@@ -15,6 +15,12 @@
 }
 
 .tasksCard.journeyPage {
+<<<<<<< HEAD
+  /* min-height: auto;
+  display: flex;
+  flex-direction: column; */
+=======
+>>>>>>> main
   height: 705px;
 }
 
@@ -167,7 +173,7 @@
   }
 
   .tasksLists {
-    max-height: 403px;
+    /* max-height: 403px; */
   }
 
   .tasksCard.dashboardPage:has(.tasksLists.empty),
