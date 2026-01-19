@@ -1,11 +1,19 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 375px;
   height: 68px;
   background: #fff;
   z-index: 100;
+}
+@media (min-width: 768px) {
+  .header {
+    width: 768px;
+  }
+}
+@media (min-width: 1440px) {
+  
 }
 
 @media (min-width: 1440px) {
@@ -13,7 +21,6 @@
     width: 312px;
     left: 50%;
     transform: translateX(-720px);
-  
   }
 }
 
@@ -42,7 +49,8 @@
 @media (min-width: 1440px) {
   .header {
     width: 312px;
-    height: 100vh;
+    left: 50%;
+    transform: translateX(-720px);
   }
 
   .footer {
