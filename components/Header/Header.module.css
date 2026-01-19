@@ -48,6 +48,8 @@
 /* DESKTOP */
 @media (min-width: 1440px) {
   .header {
+    height: 100vh;
+    max-height: 775px;
     width: 312px;
     left: 50%;
     transform: translateX(-720px);
