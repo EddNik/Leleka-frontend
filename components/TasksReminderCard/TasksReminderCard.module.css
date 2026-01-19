@@ -15,8 +15,7 @@
 }
 
 .tasksCard.journeyPage {
-  min-height: 705px;
-  /* min-height: auto; */
+  min-height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -144,14 +143,10 @@
     width: 100%;
     max-width: 704px;
     min-height: 671px;
-
-    /* min-height: 705px; */
   }
 
   .tasksLists {
-    /* max-height: 567px; */
-
-    max-height: 584px; /* Triggers scroll after this point */
+    max-height: 567px;
   }
 
   .tasksListCreateBtn {
