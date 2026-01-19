@@ -134,7 +134,7 @@ export const uploadAvatar = async (avatarFile: File): Promise<User> => {
   const formData = new FormData();
   formData.append('avatar', avatarFile);
 
-  const response = await api.patch<User>(
+  const response = await api.patch<ApiResponse<User>>(
     '/users/avatar',
     formData,
     {
@@ -144,7 +144,7 @@ export const uploadAvatar = async (avatarFile: File): Promise<User> => {
     },
   );
 
-  return response.data;
+  return response.data.data;
 };
 
 export const updateOnboarding = async (data: {

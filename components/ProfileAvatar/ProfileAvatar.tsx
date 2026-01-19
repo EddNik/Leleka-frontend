@@ -10,12 +10,15 @@ export default function ProfileAvatar() {
   const { user, setUser } = useAuthStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [avatarKey, setAvatarKey] = useState(Date.now());
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -33,7 +36,7 @@ export default function ProfileAvatar() {
       setIsUploading(true);
       const updatedUser = await uploadAvatar(file);
       setUser(updatedUser);
-      console.log('Avatar uploaded successfully');
+      setAvatarKey(Date.now());
     } catch (error) {
       console.error('Error uploading avatar:', error);
       alert('Помилка завантаження фото');
@@ -50,6 +53,7 @@ export default function ProfileAvatar() {
   return (
     <div className={css.container}>
       <Image
+        key={avatarKey}
         src={avatarSrc}
         width={132}
         height={132}
@@ -58,7 +62,7 @@ export default function ProfileAvatar() {
       />
       <div className={css.info}>
         <div className={css.details}>
-          <h3 className={css.name}>{user?.name || 'Ім\'я'}</h3>
+          <h3 className={css.name}>{user?.name || "Ім'я"}</h3>
           <p className={css.email}>{user?.email || 'email@example.com'}</p>
         </div>
         <input

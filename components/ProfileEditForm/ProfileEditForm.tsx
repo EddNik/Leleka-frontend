@@ -31,19 +31,21 @@ export default function ProfileEditForm() {
   const { user, setUser } = useAuthStore();
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [formKey, setFormKey] = useState(0);
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if ( user) {
+    if (user) {
       setIsLoadingData(false);
     }
-  }, [ user]);
+  }, [user]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const userData = await getCurrentUser();
         setUser(userData);
+        setFormKey((prev) => prev + 1); // Reinitialize form when fetching fresh user data
       } catch (error) {
         console.error('Error fetching user:', error);
       } finally {
@@ -54,7 +56,7 @@ export default function ProfileEditForm() {
     if (!user) {
       fetchUser();
     }
-  }, [ user, setUser]);
+  }, [user, setUser]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -95,6 +97,7 @@ export default function ProfileEditForm() {
     try {
       const updatedUser = await updateUser(updates);
       setUser(updatedUser);
+      setFormKey((prev) => prev + 1); // Reinitialize form with new saved values
       console.log('User updated successfully:', updatedUser);
     } catch (error) {
       console.error('Error updating user:', error);
@@ -103,10 +106,11 @@ export default function ProfileEditForm() {
 
   return (
     <Formik
+      key={formKey}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
-      enableReinitialize={true}
+      enableReinitialize={false}
     >
       {({ isSubmitting, resetForm, values, setFieldValue }) => (
         <Form className={css.form}>
