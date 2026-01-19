@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useAuthStore } from '@/lib/store/authStore';
 import { uploadAvatar } from '@/lib/api/clientApi';
 import { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function ProfileAvatar() {
   const { user, setUser } = useAuthStore();
@@ -23,12 +24,12 @@ export default function ProfileAvatar() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Будь ласка, оберіть файл зображення');
+      toast.error('Будь ласка, оберіть файл зображення');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('Розмір файлу не повинен перевищувати 5MB');
+      toast.error('Розмір файлу не повинен перевищувати 5MB');
       return;
     }
 
@@ -37,9 +38,10 @@ export default function ProfileAvatar() {
       const updatedUser = await uploadAvatar(file);
       setUser(updatedUser);
       setAvatarKey(Date.now());
+      toast.success('Аватар успішно оновлено!');
     } catch (error) {
       console.error('Error uploading avatar:', error);
-      alert('Помилка завантаження фото');
+      toast.error('Помилка завантаження фото');
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {

@@ -7,6 +7,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { getCurrentUser, updateUser } from '@/lib/api/clientApi';
 import { User } from '@/types/user';
 import css from './ProfileEditForm.module.css';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -48,6 +49,7 @@ export default function ProfileEditForm() {
         setFormKey((prev) => prev + 1); // Reinitialize form when fetching fresh user data
       } catch (error) {
         console.error('Error fetching user:', error);
+        toast.error('Помилка завантаження даних користувача');
       } finally {
         setIsLoadingData(false);
       }
@@ -98,9 +100,10 @@ export default function ProfileEditForm() {
       const updatedUser = await updateUser(updates);
       setUser(updatedUser);
       setFormKey((prev) => prev + 1); // Reinitialize form with new saved values
-      console.log('User updated successfully:', updatedUser);
+      toast.success('Дані успішно оновлено!');
     } catch (error) {
       console.error('Error updating user:', error);
+      toast.error('Помилка оновлення даних');
     }
   };
 
