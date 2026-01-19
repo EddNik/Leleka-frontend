@@ -127,7 +127,6 @@ import type {
   OnboardingFormValues,
   OnboardingResponse,
 } from '@/types/onboarding';
-import { setTheme, getThemeFromGender } from '@/lib/utils/theme';
 import axios from 'axios';
 
 export const uploadAvatar = async (avatarFile: File): Promise<User> => {
@@ -148,45 +147,38 @@ export const uploadAvatar = async (avatarFile: File): Promise<User> => {
 export const updateOnboarding = async (data: {
   dueDate: string;
   gender: string | null;
-  avatar?: string;
 }): Promise<User> => {
   const themeMap: Record<string, string> = {
-    girl: 'pink',
-    boy: 'blue',
-    unknown: 'neutral',
+    female: 'pink',
+    male: 'blue',
     null: 'neutral',
   };
 
-  // Конвертуємо 'unknown' в null для API (згідно з вимогами: boy, girl, null)
-  const genderForApi = data.gender === 'unknown' ? null : data.gender;
-
-  const response = await api.put<OnboardingResponse>('/users/profile', {
+  // Конвертуємо 'neutral' в null для API (згідно з вимогами: boy, girl, null)
+  const genderForApi = data.gender === 'neutral' ? 'neutral' : data.gender;
+  console.log('genderForApi:', genderForApi);
+  const response = await api.patch('/users/update', {
     dueDate: data.dueDate,
     gender: genderForApi,
-    theme: themeMap[data.gender || 'null'] || 'neutral',
-    ...(data.avatar && { avatar: data.avatar }),
-  });
-
-  return response.data.user;
+    theme: genderForApi});
+    console.log('response:', response);
+  return response.data.data;
 };
 
 export const completeOnboarding = async (
   formData: OnboardingFormValues,
 ): Promise<User> => {
-  let avatarUrl = '';
 
   if (formData.avatar) {
     const uploadedUser = await uploadAvatar(formData.avatar);
-    avatarUrl = uploadedUser.avatar;
+    console.log('completeOnboarding formData:', uploadedUser);
   }
 
   const user = await updateOnboarding({
     dueDate: formData.dueDate,
-    gender: formData.gender, // 'unknown' буде конвертовано в null в updateOnboarding
-    avatar: avatarUrl,
+    gender: formData.gender
   });
-
-  setTheme(getThemeFromGender(user.gender));
+ console.log('completeOnboarding user:', user);
 
   return user;
 };

@@ -94,7 +94,6 @@ export const fetchTasks = async (): Promise<FetchTasksResponse> => {
   return response.data;
 };
 
-import api2 from './api';
 export interface SessionResponse {
   success: boolean;
 }
@@ -103,7 +102,7 @@ export const checkServerSession = async (): Promise<
   AxiosResponse<SessionResponse>
 > => {
   const cookieStore = await cookies();
-  const res = await api2.post('/auth/session', null, {
+  const res = await api.post('/auth/session', null, {
     headers: {
       Cookie: cookieStore.toString(),
     },

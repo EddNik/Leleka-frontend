@@ -40,21 +40,20 @@ const validationSchema = Yup.object().shape({
       return date >= minDate && date <= maxDate;
     }),
   gender: Yup.string()
-    .oneOf(['boy', 'girl', 'unknown'], 'Оберіть стать дитини')
+    .oneOf(['male', 'female', 'neutral'], 'Оберіть стать дитини')
     .nullable(),
 });
 
 const initialValues: OnboardingFormValues = {
   avatar: null,
   dueDate: '',
-  gender: 'unknown',
+  gender: 'neutral',
 };
 
 const genderOptions = [
-  { value: '', label: 'Оберіть стать' },
-  { value: 'boy', label: 'Хлопчик' },
-  { value: 'girl', label: 'Дівчинка' },
-  { value: 'unknown', label: 'Ще не знаю' }, // 'unknown' для UI, конвертується в null для API
+  { value: 'neutral', label: 'Ще не знаю' }, // 'unknown' для UI, конвертується в null для API
+  { value: 'male', label: 'Хлопчик' },
+  { value: 'female', label: 'Дівчинка' },
 ];
 
 export default function OnboardingForm() {
@@ -64,6 +63,8 @@ export default function OnboardingForm() {
   const mutation = useMutation({
     mutationFn: completeOnboarding,
     onSuccess: (user) => {
+      console.log("LOG USER", user);
+      
       setUser(user);
       toast.success('Онбординг успішно завершено!');
       router.push('/');
@@ -108,6 +109,8 @@ export default function OnboardingForm() {
                 {values.avatar ? (
                   <Image
                     src={URL.createObjectURL(values.avatar)}
+                    width={164}
+                    height={164}
                     alt="Avatar preview"
                     className={styles.avatarImage}
                   />

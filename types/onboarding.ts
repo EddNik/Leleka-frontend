@@ -1,7 +1,7 @@
 export interface OnboardingFormValues {
   avatar: File | null;
   dueDate: string;
-  gender: 'boy' | 'girl' | 'unknown';
+  gender: 'male' | 'female' | 'neutral';
 }
 
 export interface OnboardingResponse {
