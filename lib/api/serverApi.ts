@@ -1,17 +1,17 @@
-import { api } from '@/app/api/api';
+import api from './api';
 import { Task } from '@/types/task';
 import { PregnancyWeek, Week } from '@/types/week';
 import { cookies } from 'next/headers';
 import { Diary } from '@/types/diary';
 import { ApiResponse } from '@/types/axios';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 
 export async function fetchWeekServer(
   weekNumber: number,
 ): Promise<PregnancyWeek> {
   const cookieStore = await cookies();
 
-  const { data } = await api.get(`/api/weeks/${weekNumber}`, {
+  const { data } = await api.get(`/weeks/${weekNumber}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -22,7 +22,7 @@ export async function fetchWeekServer(
 export async function fetchCurrentWeekJourneyServer(): Promise<Week | null> {
   try {
     const cookieStore = await cookies();
-    const { data } = await api.get<Week>('/api/weeks/current', {
+    const { data } = await api.get<Week>('/weeks/current', {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -47,7 +47,7 @@ export async function fetchWeekDashboardServer(): Promise<Week | null> {
 export async function fetchCurrentWeekDashboardServer(): Promise<Week | null> {
   try {
     const cookieStore = await cookies();
-    const { data } = await api.get<Week>('/api/weeks/current', {
+    const { data } = await api.get<Week>('/weeks/current', {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -61,7 +61,7 @@ export async function fetchCurrentWeekDashboardServer(): Promise<Week | null> {
 
 export const fetchServerDiaries = async () => {
   const cookieStore = await cookies();
-  const { data } = await api.get<ApiResponse<Diary[]>>('/api/diaries', {
+  const { data } = await api.get<ApiResponse<Diary[]>>('/diaries', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -71,7 +71,7 @@ export const fetchServerDiaries = async () => {
 
 export const fetchServerDiaryById = async (id: string) => {
   const cookieStore = await cookies();
-  const { data } = await api.get<ApiResponse<Diary>>(`/api/diaries/${id}`, {
+  const { data } = await api.get<ApiResponse<Diary>>(`/diaries/${id}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -86,7 +86,7 @@ export interface FetchTasksResponse {
 
 export const fetchTasks = async (): Promise<FetchTasksResponse> => {
   const cookieStore = await cookies();
-  const response = await api.get<FetchTasksResponse>('/api/tasks', {
+  const response = await api.get<FetchTasksResponse>('/tasks', {
     headers: {
       Cookie: cookieStore.toString(),
     },

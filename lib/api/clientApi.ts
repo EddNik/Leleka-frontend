@@ -195,10 +195,9 @@ export const completeOnboarding = async (
 
 export const checkSession = async (): Promise<User | null> => {
   try {
-    const { data: session } = await api.get('/auth/session');
+    const { data: session , } = await api.get('/auth/session');
     if (session?.success) {
-      const { data: user } = await api.get('/users/current');
-      return user;
+      return session.data.user;
     }
 
     return null;

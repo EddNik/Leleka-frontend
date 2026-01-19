@@ -6,6 +6,7 @@ import { lato, comfortaa } from './fonts';
 import Sprite from '@/public/img/header/sprite';
 import Toaster from '@/components/Toaster/Toaster';
 import '@/lib/validation/yup';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 export const metadata: Metadata = {
   title: 'Leleka',
   description: 'Site for moms and dads about pregnancy',
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className} ${comfortaa.className}`}>
         <TanStackProvider>
+          <AuthProvider>
           <Sprite />
           {children}
           <Toaster  />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
