@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@theme {
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1440px;
+}
+
 :root {
 	--color-scheme-background: var(--color-white);
 	--color-neutral-darkest: #000;
