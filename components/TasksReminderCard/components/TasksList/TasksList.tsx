@@ -14,7 +14,7 @@ interface TasksListProps {
 const TasksList = ({ tasks, title, name }: TasksListProps) => {
   const updateTaskMutation = useTaskStatusUpdate();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
-
+ 
   const handleChangeStatus = ({ checked, id }: UpdateTaskStateRequest) => {
     setUpdatingId(id);
     updateTaskMutation.mutate(
